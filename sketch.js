@@ -43,7 +43,7 @@ function draw() {
     let textWidthVal = textWidth("https://tryagain.com");
     line(buttonX - textWidthVal / 2, buttonY + 30, buttonX + textWidthVal / 2, buttonY + 30);
 
-window.open("https://mikanechyporenko.github.io/gryczana_1/")
+window.open("https://mikanechyporenko.github.io/gryczana_1/","_self");
     
     noStroke();
   } else {
