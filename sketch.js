@@ -43,7 +43,7 @@ function draw() {
     let textWidthVal = textWidth("https://tryagain.com");
     line(buttonX - textWidthVal / 2, buttonY + 30, buttonX + textWidthVal / 2, buttonY + 30);
 
-    // Sprawdzenie kliknięcia w obszar tekstu
+
     if (mouseIsPressed && mouseX > buttonX - textWidthVal / 2 && mouseX < buttonX + textWidthVal / 2 && mouseY > buttonY - 30 && mouseY < buttonY + 30) {
       window.open("https://mikanechyporenko.github.io/gryczana_1/", "_self");
     }
