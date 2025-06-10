@@ -3,7 +3,7 @@ let hoverCount = 0;
 let wasHovered = false;
 
 function setup() {
-  createCanvas(1920, 1080);
+  createCanvas(windowWidth, windowHeight);
   rectMode(CENTER);
   textAlign(CENTER, CENTER);
   textSize(55);
