@@ -1,9 +1,17 @@
+// GLOBALNE ZMIENNE
 let buttonX, buttonY, buttonW, buttonH;
 let hoverCount = 0;
 let wasHovered = false;
 
+let inputText = '';
+let scaleFactor = 1;
+let zoomStep = 0.03;
+let minScale = 0.1;
+
+let mode = 'start'; // 'start' lub 'secondSketch'
+
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(1920, 1080);
   rectMode(CENTER);
   textAlign(CENTER, CENTER);
   textSize(55);
@@ -15,6 +23,14 @@ function setup() {
 }
 
 function draw() {
+  if (mode === 'start') {
+    drawStartScreen();
+  } else if (mode === 'secondSketch') {
+    drawSecondScreen();
+  }
+}
+
+function drawStartScreen() {
   background('#FFFFFF');
   
   fill(0, 0);
@@ -31,7 +47,7 @@ function draw() {
   }
   wasHovered = isHovered;
 
-  if (hoverCount >= 5) {
+  if (hoverCount >= 6) {
     fill(0);
     rect(buttonX, buttonY, buttonW, buttonH);
 
@@ -43,11 +59,6 @@ function draw() {
     let textWidthVal = textWidth("https://tryagain.com");
     line(buttonX - textWidthVal / 2, buttonY + 30, buttonX + textWidthVal / 2, buttonY + 30);
 
-
-    if (mouseIsPressed && mouseX > buttonX - textWidthVal / 2 && mouseX < buttonX + textWidthVal / 2 && mouseY > buttonY - 30 && mouseY < buttonY + 30) {
-      window.open("https://mikanechyporenko.github.io/gryczana_1/", "_self");
-    }
-    
     noStroke();
   } else {
     if (!isHovered) {
@@ -56,6 +67,70 @@ function draw() {
 
       fill(255);
       text("End the game", buttonX, buttonY);
+    }
+  }
+}
+
+function mousePressed() {
+  if (mode === 'start' && hoverCount >= 5) {
+    let textWidthVal = textWidth("https://tryagain.com");
+    let inX = mouseX > buttonX - textWidthVal / 2 && mouseX < buttonX + textWidthVal / 2;
+    let inY = mouseY > buttonY - 55 / 2 && mouseY < buttonY + 55 / 2;
+    if (inX && inY) {
+      mode = 'secondSketch';
+      inputText = '';
+      scaleFactor = 1;
+      textSize(36);
+      textAlign(CENTER, CENTER);
+    }
+  }
+}
+
+// DRUGI EKRAN
+
+function drawSecondScreen() {
+  background(0, 0, 0);
+  push();
+  translate(width / 2, height / 2);
+  scale(scaleFactor);
+  drawGooglePage();
+  pop();
+}
+
+function drawGooglePage() {
+  fill(66, 133, 244); text('Well', -170, -100);
+  fill(234, 67, 53);  text('come', -91, -100);
+  fill(251, 188, 5);  text('to', -23, -100);
+  fill(66, 133, 244); text('the', 34, -100);
+  fill(52, 168, 83);  text('Inter', 109, -100);
+  fill(234, 67, 53);  text('net!', 175, -100);
+
+  fill(255);
+  stroke(200);
+  rectMode(CENTER);
+  rect(0, 0, 400, 50, 10);
+
+  textSize(24);
+  fill(0);
+  noStroke();
+  textAlign(LEFT, CENTER);
+  text(inputText, -190, 0);
+}
+
+function keyTyped() {
+  if (mode === 'secondSketch') {
+    if (key.length === 1 && key !== '\n') {
+      inputText += key;
+      scaleFactor = max(scaleFactor - zoomStep, minScale);
+    }
+  }
+}
+
+function keyPressed() {
+  if (mode === 'secondSketch') {
+    if (keyCode === BACKSPACE) {
+      inputText = inputText.slice(0, -1);
+      scaleFactor = min(scaleFactor + zoomStep, 1);
     }
   }
 }
