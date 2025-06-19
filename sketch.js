@@ -45,7 +45,6 @@ function draw() {
 
       cursor(HAND);
     
-    // Sprawdzenie kliknięcia w obszar tekstu
     if (mouseIsPressed && mouseX > buttonX - textWidthVal / 2 && mouseX < buttonX + textWidthVal / 2 && mouseY > buttonY - 30 && mouseY < buttonY + 30) {
       
       window.open("https://theapshow.github.io/ekran_0/", "_self");
